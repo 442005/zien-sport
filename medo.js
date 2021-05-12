@@ -35,27 +35,3 @@ function radialTimer(){var e=this;this.seconds=0,this.count=0,this.degrees=0,thi
 window.addEventListener("scroll",function(){noThumbnail=""+DefaultPostImage,$(".post-nav").each(function(){var e=$("a.prev-post").attr("href"),t=$("a.next-post").attr("href");$.ajax({url:e,type:"get",success:function(e){var t=$(e).find("h1.entry-title").text(),i=postnavPrevText,r="",n=$(e).find("#post-body img:first").attr("src");void 0===n&&(n=noThumbnail),r+="<div class='nav-thumb'><img alt='"+t+"' src='"+n+"'/></div><div class='nav-content'><span>"+i+"</span><p class='truncate'>"+t+"</p></div>",$("a.prev-post").html(r)}}),$.ajax({url:t,type:"get",success:function(e){var t=$(e).find("h1.entry-title").text(),i=postnavNextText,r="",n=$(e).find("#post-body img:first").attr("src");void 0===n&&(n=noThumbnail),r+="<div class='nav-thumb'><img alt='"+t+"' src='"+n+"'/></div><div class='nav-content'><span>"+i+"</span><p class='truncate'>"+t+"</p></div>",$("a.next-post").html(r)}})})});
 window.addEventListener("scroll",function(){$(".toggle").click(function(e){e.preventDefault();var t=$(this);t.next().hasClass("show")?(t.next().removeClass("show"),t.next().slideUp(350)):(t.parent().parent().find("li .inner").removeClass("show"),t.parent().parent().find("li .inner").slideUp(350),t.next().toggleClass("show"),t.next().slideToggle(350))})});
 function cyberghost(e,t){for(var r=e.split("<"),n=0;n<r.length;n++)-1!=r[n].indexOf(">")&&(r[n]=r[n].substring(r[n].indexOf(">")+1,r[n].length));return r=r.join(""),r=r.substring(0,t-1)}function showzTable(e){var t,r,n,i,l,a="";urlprevious="",urlnext="";for(var o=0;o<e.feed.link.length;o++)"previous"==e.feed.link[o].rel&&(urlprevious=e.feed.link[o].href),"next"==e.feed.link[o].rel&&(urlnext=e.feed.link[o].href);for(var s=0;numfeed>s&&s!=e.feed.entry.length;s++){t=e.feed.entry[s],r=t.title.$t;for(var o=0;o<t.link.length;o++)if("alternate"==t.link[o].rel){n=t.link[o].href;break}l="content"in t?t.content.$t:"summary"in t?t.summary.$t:"",i="media$thumbnail"in t?t.media$thumbnail.url:""+DefaultPostImage,a+="<div class='zTablePost'>",a+="<a href='"+n+"' target='_blank'><img src='"+i+"' /></a>",a+="<h6><a href='"+n+"'>"+r+"</a></h6>",a+="<p>"+cyberghost(l,charac)+"...</p>",a+="</div>"}document.getElementById("zTable").innerHTML=a,a=""}function navigasifeed(e){var t,r;-1==e?(t=urlprevious.indexOf("?"),r=urlprevious.substring(t)):1==e?(t=urlnext.indexOf("?"),r=urlnext.substring(t)):r="?start-index=1&max-results="+numfeed+"&orderby=published&alt=json-in-script",r+="&callback=showzTable",incluirscript(r)}function incluirscript(e){1==startfeed&&removerscript(),document.getElementById("zTable").innerHTML="<div id='zLoading'></div>";var t=urlblog+"/feeds/posts/default/"+e,r=document.createElement("script");r.setAttribute("type","text/javascript"),r.setAttribute("src",t),r.setAttribute("id","MASLABEL"),document.getElementsByTagName("head")[0].appendChild(r),startfeed=1}function removerscript(){var e=document.getElementById("MASLABEL"),t=e.parentNode;t.removeChild(e)}var numfeed=5,startfeed=0,urlblog=window.location.protocol+"//"+window.location.hostname,charac=150,urlprevious,urlnext;onload=function(){navigasifeed(0)};
-document.querySelector("#match-today").onclick=function(){
-        this.classList.add("open-match");
-        document.querySelector("#match-tom").classList.remove("open-match");
-        document.querySelector("#match-yaster").classList.remove("open-match");      
-        document.querySelector("#matchtables-today").classList.add("openn");
-        document.querySelector("#matchtables-yester").classList.remove("openn");
-        document.querySelector("#matchtables-Tom").classList.remove("openn");
-        };
-        document.querySelector("#match-yaster").onclick=function(){
-        this.classList.add("open-match");
-        document.querySelector("#match-today").classList.remove("open-match");
-        document.querySelector("#match-tom").classList.remove("open-match");      
-        document.querySelector("#matchtables-today").classList.remove("openn");
-        document.querySelector("#matchtables-yester").classList.add("openn");
-        document.querySelector("#matchtables-Tom").classList.remove("openn");
-        };
-        document.querySelector("#match-tom").onclick=function(){
-        this.classList.add("open-match");
-        document.querySelector("#match-today").classList.remove("open-match");
-        document.querySelector("#match-yaster").classList.remove("open-match");      
-        document.querySelector("#matchtables-today").classList.remove("openn");
-        document.querySelector("#matchtables-yester").classList.remove("openn");
-        document.querySelector("#matchtables-Tom").classList.add("openn");
-        };
